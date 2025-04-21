@@ -1,0 +1,94 @@
+## .NET Core specific
+bin/
+obj/
+*.user
+*.userosscache
+*.suo
+*.userprefs
+.vs/
+.vscode/
+_ReSharper*/
+*.ReSharper*
+*.DotSettings.user
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+
+## Database related
+*.mdf
+*.ldf
+*.ndf
+*.sqlite
+*.db
+
+## Environment configs (for security)
+appsettings.Development.json
+appsettings.Production.json
+appsettings.local.json
+*.env
+
+## Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+## MSTest test Results
+TestResults/
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+## NUnit
+*.VisualState.xml
+TestResult.xml
+nunit-*.xml
+
+## Build stuff
+.builds
+*.[Cc]ache
+*.[Cc]ache/*
+*.swp
+*.bak
+*.tmp
+*.pidb
+*.svclog
+*.log
+*.jfm
+
+## Visual Studio temp stuff
+.vs/
+*.$vs$
+*.psess
+*.vsp
+*.vspx
+*.sap
+
+## IDE-specific files
+.idea/
+*.sln.iml
+.cr/
+__pycache__/
+*.pyc
+
+## OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+## Backup files
+*~
+*.bak
+*.swp

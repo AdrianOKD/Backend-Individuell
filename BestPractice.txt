@@ -1,0 +1,26 @@
+Best Practices
+Versionshantering
+
+Commita migrations tillsammans med modelländringarna (med Git exempelvis)
+Behandla migrations som källkod
+Ha en migration per betydande ändring (likt Git commits)
+Namngivning
+
+Använd beskrivande namn: AddUserEmailColumn istället för Update1
+Inkludera datum i namnet för stora projekt: 20240119_AddUserProfile
+Säkerhet (inte aktuellt i denna kurs men viktigt ändå)
+
+Backup innan produktionsuppdateringar
+Använd transactions när möjligt (SQL-transactions)
+Ha en rollback-plan
+Deployment (inte aktuellt i denna kurs men viktigt ändå)
+
+Automatisera deployment av migrations
+Använd CI/CD pipelines
+Dokumentera specialfall eller manuella steg
+
+
+Varnignar: 
+Undvik att ändra eller ta bort existerande migrations som är i produktion
+Var försiktig med data-förändrande migrations
+Var medveten om att vissa ändringar kan kräva downtime och/eller manuella ändringar

@@ -1,0 +1,58 @@
+Individuell uppgift (G/VG)
+
+
+Denna uppgift är praktisk och görs individuellt. Lycka till!
+
+
+
+Bedömning
+
+
+IG, G & VG
+
+Om kraven för G inte uppnås bedöms uppgiften med IG.
+
+
+
+Krav för G:
+
+Följ instruktionerna i beskrivningen
+Formatera koden: Små misstag ignoreras men större fel ger IG (om du blir osäker kan du fråga läraren)
+Använd git för versionshantering
+Använd PostgreSQL som databas för lagring av filer
+Använd Entity Framework
+
+
+Krav för VG:
+
+Uppnå krav för G
+Använd controller-service-repository arkitektur med uppdelning av ansvar
+Kommentera alla service metoder med en C# standard (controllers, models, repositories m.m behöver inte kommenteras)
+Implementera säkerhet (mer information i beskrivningen)
+
+Beskrivning
+
+Du skall i denna uppgift bygga ett API med ASP.NET, PostgreSQL och Entity Framework. API:et skall fungera likt Google Drive och Dropbox. Följande skall vara möjligt:
+
+Skapa ny mapp (mappar kan men måste inte kunna innehålla andra mappar)
+Ladda upp fil till specifik mapp
+Radera fil
+Ladda ned fil
+
+Implementera detta, minst, genom controller endpoints. 
+Filer skall minst bestå av namn och innehåll av filen.
+Mappar skall minst bestå av namn och andra filer (genom relationer exempelvis). 
+Filer sparas till PostgreSQL genom Entity Framework. 
+Notera att filerna inte är "riktiga" eller "vanliga" filer som normalt sparas på datorn, utan en ny representation som kan lagras i databas. 
+En fil är tekniskt sätt bara en array med bytes.
+
+För VG skall man även implementera säkerhet med Identity Core:
+Registrering av användare
+Inloggning av användare (med tokens)
+Alla mappar och filer skall vara kopplade till en användare
+Användare kan inte se andras filer och mappar
+Om man inte är inloggad kan man inte göra något, förutom att registrera en användare och logga in
+
+
+
+
