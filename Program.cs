@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace ovningD29;
@@ -8,10 +9,15 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
+        builder.Services.AddControllers();
+        builder.Services.AddAuthorization();
+
+        builder
+            .Services.AddIdentityApiEndpoints<UserEntity>()
+            .AddEntityFrameworkStores<AppDbContext>()
+            .AddDefaultTokenProviders();
         builder.Services.AddDbContext<AppDbContext>(options =>
-            options.UseNpgsql(
-                "Host=localhost;Port=5432;Database=minireddit;Username=postgres;Password=password"
-            )
+            options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
         );
 
         builder.Services.AddControllers();
