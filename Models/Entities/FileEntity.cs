@@ -6,6 +6,8 @@ public class FileEntity
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime ModifiedAt { get; set; } = DateTime.UtcNow;
 
+    public string OwnerId { get; set; }
+    public UserEntity Owner { get; set; }
     public int FolderId { get; set; }
     public FolderEntity Folder { get; set; }
 }

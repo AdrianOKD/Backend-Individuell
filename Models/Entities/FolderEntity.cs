@@ -2,9 +2,10 @@ public class FolderEntity
 {
     public int Id { get; set; }
     public string Name { get; set; }
-    public DateTime CreatedAt { get; set; } = DateTime.Now;
-    public DateTime ModifiedAt { get; set; } = DateTime.Now;
-
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime ModifiedAt { get; set; } = DateTime.UtcNow;
+    public string OwnerId { get; set; }
+    public UserEntity Owner { get; set; }
     public int? ParentFolderId { get; set; }
     public FolderEntity ParentFolder { get; set; }
 
