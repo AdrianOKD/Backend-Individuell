@@ -3,7 +3,7 @@ public class FolderEntity
     public int Id { get; set; }
     public string Name { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.Now;
-    public DateTime ModifedAt { get; set; } = DateTime.Now;
+    public DateTime ModifiedAt { get; set; } = DateTime.Now;
 
     public int? ParentFolderId { get; set; }
     public FolderEntity ParentFolder { get; set; }
