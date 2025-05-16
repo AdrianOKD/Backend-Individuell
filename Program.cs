@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Scalar.AspNetCore;
 
-namespace ovningD29;
 
 public class Program
 {
@@ -11,7 +11,7 @@ public class Program
 
         builder.Services.AddControllers();
         builder.Services.AddAuthorization();
-
+        builder.Services.AddOpenApi();
         builder
             .Services.AddIdentityApiEndpoints<UserEntity>()
             .AddEntityFrameworkStores<AppDbContext>()
@@ -24,6 +24,17 @@ public class Program
 
         var app = builder.Build();
 
+        app.MapOpenApi();
+
+        if (app.Environment.IsDevelopment())
+        {
+            app.MapScalarApiReference();
+        }
+
+        app.MapIdentityApi<UserEntity>();
+        app.UseHttpsRedirection();
+        app.UseAuthentication();
+        app.UseAuthorization();
         app.MapControllers();
 
         app.Run();
