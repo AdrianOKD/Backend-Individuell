@@ -1,21 +1,36 @@
+using System.Security.Claims;
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
 [Route("[controller]")]
-[Authorize]
+public class FoldersController : ControllerBase
 {
-    public class FOldersController : ControllerBase {
     public readonly IFolderService folderService;
 
-    public FOldersController(FolderService folderService) {
+    public FoldersController(IFolderService folderService)
+    {
         this.folderService = folderService;
-
     }
 
-
-
+    [HttpPost]
+    [Authorize]
+    public async Task<IActionResult> CreateFolder([FromBody] CreateFolderRequest request)
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (string.IsNullOrEmpty(userId))
+        {
+            return Unauthorized();
+        }
+        try
+        {
+            await folderService.CreateFolderAsync(request, userId);
+            return Ok("Folder created successfully");
+        }
+        catch (Exception)
+        {
+            return StatusCode(500);
+        }
     }
-
 }
