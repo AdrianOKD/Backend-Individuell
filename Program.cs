@@ -8,13 +8,15 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
+        builder.Services.AddScoped<IFolderRepository, FolderRepository>();
+        builder.Services.AddScoped<IFileRepository, FileRepository>();
         builder.Services.AddScoped<IFolderService, FolderService>();
-        builder.Services.AddControllers();
+        builder.Services.AddScoped<IFileService, FileService>();
         builder.Services.AddAuthorization();
         builder.Services.AddOpenApi();
         builder
             .Services.AddIdentityApiEndpoints<UserEntity>()
-            .AddEntityFrameworkStores<AppDbContext>()
+            .AddEntityFrameworkStores<AppDbContext>()F
             .AddDefaultTokenProviders();
         builder.Services.AddDbContext<AppDbContext>(options =>
             options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
