@@ -3,8 +3,13 @@ public class FolderService : IFolderService
     private readonly ILogger<IFolderService> logger;
     private readonly IFolderRepository folderRepository;
 
-    public FolderService(IFolderRepository folderRepository,ILogger<IFolderService> logger) { this.folderRepository = folderRepository; this.logger = logger; }
-    public async Task RegisterFolderAsync(CreateFolderRequest request, string userId)
+    public FolderService(IFolderRepository folderRepository, ILogger<IFolderService> logger)
+    {
+        this.folderRepository = folderRepository;
+        this.logger = logger;
+    }
+
+    public async Task<FolderDto> RegisterFolderAsync(CreateFolderRequest request, string userId)
     {
         var folder = new FolderEntity
         {
@@ -14,7 +19,15 @@ public class FolderService : IFolderService
             CreatedAt = DateTime.UtcNow,
             ModifiedAt = DateTime.UtcNow,
         };
+        var response = await folderRepository.CreateFolderAsync(folder);
 
-        var response = await FolderRepository.(folder);
+        return new FolderDto
+        {
+            Id = response.Id,
+            Name = response.Name,
+            ParentFolderId = response.ParentFolderId,
+            CreatedAt = response.CreatedAt,
+            ModifiedAt = response.ModifiedAt,
+        };
     }
 }

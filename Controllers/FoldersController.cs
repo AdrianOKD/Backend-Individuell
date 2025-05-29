@@ -25,8 +25,8 @@ public class FoldersController : ControllerBase
         }
         try
         {
-            await folderService.RegisterFolderAsync(request, userId);
-            return Ok("Folder created successfully");
+            var response = await folderService.RegisterFolderAsync(request, userId);
+            return Ok(response);
         }
         catch (Exception)
         {

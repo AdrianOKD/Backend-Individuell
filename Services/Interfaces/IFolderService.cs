@@ -1,4 +1,4 @@
 public interface IFolderService
 {
-    Task RegisterFolderAsync(CreateFolderRequest request, string userId);
+    Task<FolderDto> RegisterFolderAsync(CreateFolderRequest request, string userId);
 }
