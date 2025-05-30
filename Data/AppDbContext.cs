@@ -29,13 +29,6 @@ public class AppDbContext : DbContext
             .OnDelete(DeleteBehavior.Restrict);
 
         builder
-            .Entity<FolderEntity>()
-            .HasOne(f => f.ParentFolder)
-            .WithMany(f => f.SubFolder)
-            .HasForeignKey(f => f.ParentFolderId)
-            .OnDelete(DeleteBehavior.Restrict);
-
-        builder
             .Entity<FileEntity>()
             .HasOne(f => f.Folder)
             .WithMany(f => f.Files)
