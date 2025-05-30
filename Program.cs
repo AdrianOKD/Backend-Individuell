@@ -16,7 +16,7 @@ public class Program
         builder.Services.AddOpenApi();
         builder
             .Services.AddIdentityApiEndpoints<UserEntity>()
-            .AddEntityFrameworkStores<AppDbContext>()F
+            .AddEntityFrameworkStores<AppDbContext>()
             .AddDefaultTokenProviders();
         builder.Services.AddDbContext<AppDbContext>(options =>
             options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))

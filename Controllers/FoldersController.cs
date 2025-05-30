@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
 [Route("[controller]")]
+[Authorize]
 public class FoldersController : ControllerBase
 {
     public readonly IFolderService folderService;
@@ -15,7 +16,6 @@ public class FoldersController : ControllerBase
     }
 
     [HttpPost]
-    [Authorize]
     public async Task<IActionResult> CreateFolder([FromBody] CreateFolderRequest request)
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
