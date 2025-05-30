@@ -15,7 +15,6 @@ public class FolderService : IFolderService
         {
             Name = request.Name,
             OwnerId = userId,
-            ParentFolderId = request.ParentFolderId,
             CreatedAt = DateTime.UtcNow,
             ModifiedAt = DateTime.UtcNow,
         };
@@ -25,7 +24,6 @@ public class FolderService : IFolderService
         {
             Id = response.Id,
             Name = response.Name,
-            ParentFolderId = response.ParentFolderId,
             CreatedAt = response.CreatedAt,
             ModifiedAt = response.ModifiedAt,
         };
