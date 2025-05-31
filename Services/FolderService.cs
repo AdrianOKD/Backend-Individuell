@@ -9,7 +9,7 @@ public class FolderService : IFolderService
         this.logger = logger;
     }
 
-    public async Task<FolderDto> RegisterFolderAsync(CreateFolderRequest request, string userId)
+    public async Task<FolderEntity> RegisterFolderAsync(CreateFolderRequest request, string userId)
     {
         var folder = new FolderEntity
         {
@@ -18,14 +18,6 @@ public class FolderService : IFolderService
             CreatedAt = DateTime.UtcNow,
             ModifiedAt = DateTime.UtcNow,
         };
-        var response = await folderRepository.CreateFolderAsync(folder);
-
-        return new FolderDto
-        {
-            Id = response.Id,
-            Name = response.Name,
-            CreatedAt = response.CreatedAt,
-            ModifiedAt = response.ModifiedAt,
-        };
+        return await folderRepository.CreateFolderAsync(folder);
     }
 }

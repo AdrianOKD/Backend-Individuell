@@ -10,3 +10,5 @@ public class FolderEntity
     public UserEntity? Owner { get; set; }
     public ICollection<FileEntity> Files { get; set; } = new List<FileEntity>();
 }
+
+
