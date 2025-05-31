@@ -26,7 +26,8 @@ public class FoldersController : ControllerBase
         try
         {
             var response = await folderService.RegisterFolderAsync(request, userId);
-            return Ok(response);
+            var folderResponse = FolderDto.Map(response);
+            return Ok(folderResponse);
         }
         catch (Exception)
         {
