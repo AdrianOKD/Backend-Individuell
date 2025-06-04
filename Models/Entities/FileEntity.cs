@@ -5,7 +5,6 @@ public class FileEntity
     public byte[] Content { get; set; }
 
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-    public DateTime ModifiedAt { get; set; } = DateTime.UtcNow;
     public string OwnerId { get; set; }
     public int FolderId { get; set; }
 
