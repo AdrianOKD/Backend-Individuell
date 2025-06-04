@@ -11,13 +11,13 @@ public class FolderService : IFolderService
 
     public async Task<FolderEntity> RegisterFolderAsync(CreateFolderRequest request, string userId)
     {
-        var folder = new FolderEntity
-        {
-            Name = request.Name,
-            OwnerId = userId,
-            CreatedAt = DateTime.UtcNow,
-            ModifiedAt = DateTime.UtcNow,
-        };
+        var folder = CreateFolderRequest.ToEntityMap(request, userId);
+
         return await folderRepository.CreateFolderAsync(folder);
+    }
+
+    public Task RemoveFolderAsync(int id, string userId)
+    {
+        throw new NotImplementedException();
     }
 }
