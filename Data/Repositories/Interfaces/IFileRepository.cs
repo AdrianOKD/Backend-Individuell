@@ -1,4 +1,1 @@
-public interface IFileRepository
-{
-    
-}
+public interface IFileRepository { }
