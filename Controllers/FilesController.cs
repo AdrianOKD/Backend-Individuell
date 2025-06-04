@@ -1,0 +1,36 @@
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+
+[ApiController]
+[Route("[controller]")]
+[Authorize]
+public class FilesController : ControllerBase
+{
+    public readonly IFileService fileService;
+
+    public FilesController(IFileService filesService)
+    {
+        this.fileService = filesService;
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> CreateFile([FromBody] CreateFileRequest request)
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (string.IsNullOrEmpty(userId))
+        {
+            return Unauthorized();
+        }
+        try
+        {
+            var response = await fileService.RegisterFileAsync(request, userId);
+            var folderResponse = FileDto.Map(response);
+            return Ok(folderResponse);
+        }
+        catch (Exception)
+        {
+            return StatusCode(500);
+        }
+    }
+}
