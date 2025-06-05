@@ -6,4 +6,11 @@ public class FileRepository : IFileRepository
     {
         this.context = context;
     }
+
+    public async Task<FileEntity> CreateFileAsync(FileEntity file)
+    {
+        await context.File.AddAsync(file);
+        await context.SaveChangesAsync();
+        return file;
+    }
 }
