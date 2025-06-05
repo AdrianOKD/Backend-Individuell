@@ -10,6 +10,11 @@ public class CreateFolderRequest
 
     public static FolderEntity ToEntityMap(CreateFolderRequest request, string userId)
     {
-        return new FolderEntity { Name = request.Name, OwnerId = userId };
+        return new FolderEntity
+        {
+            Name = request.Name,
+            OwnerId = userId,
+            CreatedAt = DateTime.UtcNow,
+        };
     }
 }
