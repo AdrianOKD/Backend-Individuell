@@ -8,7 +8,7 @@ public class AppDbContext : DbContext
 
     public DbSet<FolderEntity> Folder { get; set; }
 
-    public DbSet<FileEntity> Files { get; set; }
+    public DbSet<FileEntity> File { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
