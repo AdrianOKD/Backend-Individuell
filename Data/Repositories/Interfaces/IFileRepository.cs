@@ -1,1 +1,4 @@
-public interface IFileRepository { }
+public interface IFileRepository
+{
+    public Task<FileEntity> CreateFileAsync(FileEntity file);
+}

@@ -2,12 +2,12 @@ public class FileService : IFileService
 {
     private readonly IFileRepository fileRepository;
     private readonly IFolderRepository folderRepository;
-    private readonly ILogger<IFileService> logger;
+    private readonly ILogger<FileService> logger;
 
     public FileService(
         IFileRepository fileRepository,
         IFolderRepository folderRepository,
-        Logger<IFileService> logger
+        ILogger<FileService> logger
     )
     {
         this.fileRepository = fileRepository;
@@ -15,9 +15,15 @@ public class FileService : IFileService
         this.logger = logger;
     }
 
-    public async Task<FileEntity> RegisterFileAsync(CreateFileRequest request, string userId)
+    public async Task<FileEntity> RegisterFileAsync(UploadFileRequest request, string userId)
     {
-        var file = CreateFileRequest.ToEntityMap(request, userId);
+        byte[] fileContent;
+        using (var memoryStream = new MemoryStream())
+        {
+            await request.File.CopyToAsync(memoryStream);
+            fileContent = memoryStream.ToArray();
+        }
+        var file = UploadFileRequest.ToEntityMap(request, userId, fileContent);
         return await fileRepository.CreateFileAsync(file);
     }
 

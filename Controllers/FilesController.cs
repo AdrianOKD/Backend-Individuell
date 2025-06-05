@@ -15,12 +15,16 @@ public class FilesController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateFile([FromBody] CreateFileRequest request)
+    public async Task<IActionResult> UploadFile([FromForm] UploadFileRequest request)
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (string.IsNullOrEmpty(userId))
         {
             return Unauthorized();
+        }
+        if (request == null)
+        {
+            return BadRequest();
         }
         try
         {
