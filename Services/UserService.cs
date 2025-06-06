@@ -1,4 +1,1 @@
-public class UserService : IUserService
-{ 
-    
-}
+public class UserService : IUserService { }
