@@ -37,4 +37,23 @@ public class FilesController : ControllerBase
             return StatusCode(500);
         }
     }
+
+    [HttpGet]
+    public async Task<IActionResult> DownloadFile(int id)
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (string.IsNullOrEmpty(userId))
+        {
+            return Unauthorized();
+        }
+        try
+        {
+            var response = await fileService.GetFileAsync(id, userId);
+            return Ok();
+        }
+        catch (Exception)
+        {
+            return StatusCode(500);
+        }
+    }
 }
