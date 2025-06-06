@@ -31,13 +31,14 @@ public class FileService : IFileService
     {
         var file = await fileRepository.FetchFileAsync(id, userId);
         if (file == null)
-            throw new FileNotFoundException(); //TODO Make own excpetion.
+            throw new FileNotFoundException(id);
 
         return file;
     }
 
-    public Task RemoveFileAsync(int id, string userId)
+    public async Task RemoveFileAsync(int id, string userId)
     {
-        throw new NotImplementedException();
+        var file = await fileRepository.FetchFileAsync(id, userId);
+        await fileRepository.DeleteFileAsync(file);
     }
 }

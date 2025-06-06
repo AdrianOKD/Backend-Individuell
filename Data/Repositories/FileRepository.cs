@@ -24,4 +24,10 @@ public class FileRepository : IFileRepository
 
         return file!;
     }
+
+    public async Task DeleteFileAsync(FileEntity file)
+    {
+        context.File.Remove(file);
+        await context.SaveChangesAsync();
+    }
 }
