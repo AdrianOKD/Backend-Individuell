@@ -49,7 +49,13 @@ public class FilesController : ControllerBase
         try
         {
             var response = await fileService.GetFileAsync(id, userId);
-            return Ok();
+            var memoryStream = new MemoryStream(response.Content);
+
+            return base.File(
+                memoryStream,
+                FileContentHelper.GetContentType(response.Name),
+                response.Name
+            );
         }
         catch (Exception)
         {
