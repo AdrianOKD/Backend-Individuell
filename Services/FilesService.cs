@@ -27,9 +27,13 @@ public class FileService : IFileService
         return await fileRepository.CreateFileAsync(file);
     }
 
-    public Task<FileEntity> GetFileAsync(int id, string userId)
+    public async Task<FileEntity> GetFileAsync(int id, string userId)
     {
-        throw new NotImplementedException();
+        var file = await fileRepository.FetchFileAsync(id, userId);
+        if (file == null)
+            throw new FileNotFoundException(); //TODO Make own excpetion.
+
+        return file;
     }
 
     public Task RemoveFileAsync(int id, string userId)
