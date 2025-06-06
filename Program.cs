@@ -7,7 +7,7 @@ public class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
-
+        builder.Services.AddLogging();
         builder.Services.AddScoped<IFolderRepository, FolderRepository>();
         builder.Services.AddScoped<IFileRepository, FileRepository>();
         builder.Services.AddScoped<IFolderService, FolderService>();

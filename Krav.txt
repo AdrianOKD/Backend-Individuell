@@ -53,6 +53,3 @@ Alla mappar och filer skall vara kopplade till en användare
 Användare kan inte se andras filer och mappar
 Om man inte är inloggad kan man inte göra något, förutom att registrera en användare och logga in
 
-
-
-
