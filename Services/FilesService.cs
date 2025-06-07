@@ -42,6 +42,8 @@ public class FileService : IFileService
     public async Task<FileEntity> UpdateFileAsync(int id, UploadFileRequest request, string userId)
     {
         var existingFile = await GetFileAsync(id, userId);
+        if (existingFile == null)
+            throw new KeyNotFoundException();
 
         byte[] fileContent;
         using (var memoryStream = new MemoryStream())
@@ -50,6 +52,7 @@ public class FileService : IFileService
             fileContent = memoryStream.ToArray();
         }
         var updatedFile = UploadFileRequest.ToEntityMap(request, userId, fileContent);
+        updatedFile.Id = id;
 
         return await fileRepository.UpdateFileAsync(updatedFile);
     }
