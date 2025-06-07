@@ -26,6 +26,42 @@ public class FileRepository : IFileRepository
         return file!;
     }
 
+    public async Task<(
+        List<FolderEntity> folders,
+        List<FileEntity> files
+    )> FetchAllFoldersWithFilesAsync(string userId)
+    {
+        var folders = await context.Folder.Where(f => f.OwnerId == userId).ToListAsync();
+
+        var files = await context
+            .File.Include(f => f.Folder)
+            .Where(f => f.OwnerId == userId)
+            .Select(f => new FileEntity
+            {
+                Id = f.Id,
+                Name = f.Name,
+                CreatedAt = f.CreatedAt,
+                FolderId = f.FolderId,
+                OwnerId = f.OwnerId,
+                Content = Array.Empty<byte>(),
+                Folder = f.Folder,
+            })
+            .ToListAsync();
+
+        return (folders, files);
+    }
+
+    public async Task<FileEntity> FetchFileForDuplicateCheckAsync(
+        string fileName,
+        int folderId,
+        string userId
+    )
+    {
+        return await context.File.FirstOrDefaultAsync(f =>
+            f.Name == fileName && f.FolderId == folderId && f.OwnerId == userId
+        );
+    }
+
     public async Task<FileEntity> UpdateFileAsync(FileEntity file)
     {
         context.File.Update(file);
