@@ -18,13 +18,11 @@ public class FoldersController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateFolder([FromBody] CreateFolderRequest request)
     {
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        if (string.IsNullOrEmpty(userId))
-        {
-            return Unauthorized();
-        }
         try
         {
+            var userId = ValidateUser.UserValidation(
+                User.FindFirstValue(ClaimTypes.NameIdentifier)
+            );
             var response = await folderService.RegisterFolderAsync(request, userId);
             var folderResponse = FolderDto.Map(response);
             return Ok(folderResponse);
@@ -33,5 +31,17 @@ public class FoldersController : ControllerBase
         {
             return StatusCode(500);
         }
+    }
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetFolder()
+    {
+        try
+        {
+            var userId = ValidateUser.UserValidation(
+                User.FindFirstValue(ClaimTypes.NameIdentifier)
+            );
+        }
+        catch { }
     }
 }
