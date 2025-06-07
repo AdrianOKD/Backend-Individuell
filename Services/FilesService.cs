@@ -19,6 +19,16 @@ public class FileService : IFileService
 
     public async Task<FileEntity> RegisterFileAsync(UploadFileRequest request, string userId)
     {
+        var existingFile = await fileRepository.FetchFileForDuplicateCheckAsync(
+            request.File.FileName,
+            request.FolderId,
+            userId
+        );
+
+        if (existingFile != null)
+            throw new InvalidOperationException(
+                $"File '{request.File.FileName}' already exists in this folder"
+            );
         byte[] fileContent;
         using (var memoryStream = new MemoryStream())
         {
@@ -63,5 +73,18 @@ public class FileService : IFileService
         if (file == null)
             throw new FileNotFoundException(id);
         await fileRepository.DeleteFileAsync(file);
+    }
+
+    public async Task<(List<FolderDto> folders, List<FileDto> files)> GetAllFoldersWithFilesAsync(
+        string userId
+    )
+    {
+        var (folders, files) = await fileRepository.FetchAllFoldersWithFilesAsync(userId);
+        return (folders.Select(FolderDto.Map).ToList(), files.Select(FileDto.Map).ToList());
+    }
+
+    public Task RemoveFolderAsync(int id, string userId)
+    {
+        throw new NotImplementedException();
     }
 }
