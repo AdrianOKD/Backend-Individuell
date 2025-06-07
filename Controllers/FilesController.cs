@@ -67,6 +67,23 @@ public class FilesController : ControllerBase
         }
     }
 
+    [HttpGet]
+    public async Task<IActionResult> GetAllFoldersWithFiles()
+    {
+        try
+        {
+            var userId = ValidateUser.UserValidation(
+                User.FindFirstValue(ClaimTypes.NameIdentifier)
+            );
+            var (folders, files) = await fileService.GetAllFoldersWithFilesAsync(userId);
+            return Ok(new { folders, files });
+        }
+        catch
+        {
+            return StatusCode(500);
+        }
+    }
+
     [HttpPatch("{id}")]
     public async Task<IActionResult> UpdateFile(int id, [FromForm] UploadFileRequest request)
     {
