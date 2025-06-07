@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
+
 public class FileService : IFileService
 {
     private readonly IFileRepository fileRepository;
@@ -23,6 +25,7 @@ public class FileService : IFileService
             await request.File.CopyToAsync(memoryStream);
             fileContent = memoryStream.ToArray();
         }
+
         var file = UploadFileRequest.ToEntityMap(request, userId, fileContent);
         return await fileRepository.CreateFileAsync(file);
     }
@@ -36,9 +39,26 @@ public class FileService : IFileService
         return file;
     }
 
+    public async Task<FileEntity> UpdateFileAsync(int id, UploadFileRequest request, string userId)
+    {
+        var existingFile = await GetFileAsync(id, userId);
+
+        byte[] fileContent;
+        using (var memoryStream = new MemoryStream())
+        {
+            await request.File.CopyToAsync(memoryStream);
+            fileContent = memoryStream.ToArray();
+        }
+        var updatedFile = UploadFileRequest.ToEntityMap(request, userId, fileContent);
+
+        return await fileRepository.UpdateFileAsync(updatedFile);
+    }
+
     public async Task RemoveFileAsync(int id, string userId)
     {
         var file = await fileRepository.FetchFileAsync(id, userId);
+        if (file == null)
+            throw new FileNotFoundException(id);
         await fileRepository.DeleteFileAsync(file);
     }
 }
