@@ -16,11 +16,13 @@ public class FolderService : IFolderService
         return await folderRepository.CreateFolderAsync(folder);
     }
 
-    //TODO Add method for fetching folders. Also fetch files related to folder and check for file type and name
+    
+
+    //TODO Add method for fetching folders.
+
 
     public Task RemoveFolderAsync(int id, string userId)
     {
         throw new NotImplementedException();
     }
 }
-//select folders firstOrDefult => select files => array.empty<byte>(); to list.

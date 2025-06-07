@@ -33,15 +33,5 @@ public class FoldersController : ControllerBase
         }
     }
 
-    [HttpGet("{id}")]
-    public async Task<IActionResult> GetFolder()
-    {
-        try
-        {
-            var userId = ValidateUser.UserValidation(
-                User.FindFirstValue(ClaimTypes.NameIdentifier)
-            );
-        }
-        catch { }
-    }
+    
 }
