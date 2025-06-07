@@ -1,4 +1,1 @@
-public interface IUserService
-{
-    
-}
+public interface IUserService { }

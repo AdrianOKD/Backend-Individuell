@@ -12,8 +12,6 @@ IG, G & VG
 
 Om kraven för G inte uppnås bedöms uppgiften med IG.
 
-
-
 Krav för G:
 
 Följ instruktionerna i beskrivningen
@@ -21,7 +19,6 @@ Formatera koden: Små misstag ignoreras men större fel ger IG (om du blir osäk
 Använd git för versionshantering
 Använd PostgreSQL som databas för lagring av filer
 Använd Entity Framework
-
 
 Krav för VG:
 
