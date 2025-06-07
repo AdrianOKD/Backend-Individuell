@@ -17,10 +17,6 @@ public class FilesController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> UploadFile([FromForm] UploadFileRequest request)
     {
-        if (request == null)
-        {
-            return BadRequest();
-        }
         try
         {
             var userId = ValidateUser.UserValidation(
@@ -40,7 +36,7 @@ public class FilesController : ControllerBase
         }
     }
 
-    [HttpGet]
+    [HttpGet("{id}")]
     public async Task<IActionResult> DownloadFile(int id)
     {
         try
@@ -61,10 +57,27 @@ public class FilesController : ControllerBase
         {
             return Unauthorized();
         }
+        catch (FileNotFoundException)
+        {
+            return NotFound();
+        }
         catch (Exception)
         {
             return StatusCode(500);
         }
+    }
+
+    [HttpPatch("{id}")]
+    public async Task UpdateFile(int id, [FromForm] UploadFileRequest request)
+    {
+        try
+        {
+            var userId = ValidateUser.UserValidation(
+                User.FindFirstValue(ClaimTypes.NameIdentifier)
+            );
+            
+        }
+        catch { }
     }
 
     [HttpDelete("{id}")]
@@ -81,6 +94,10 @@ public class FilesController : ControllerBase
         catch (UnauthorizedAccessException)
         {
             return Unauthorized();
+        }
+        catch (FileNotFoundException)
+        {
+            return NotFound();
         }
         catch
         {
