@@ -68,16 +68,29 @@ public class FilesController : ControllerBase
     }
 
     [HttpPatch("{id}")]
-    public async Task UpdateFile(int id, [FromForm] UploadFileRequest request)
+    public async Task<IActionResult> UpdateFile(int id, [FromForm] UploadFileRequest request)
     {
         try
         {
             var userId = ValidateUser.UserValidation(
                 User.FindFirstValue(ClaimTypes.NameIdentifier)
             );
-            
+            var updatedFile = await fileService.UpdateFileAsync(id, request, userId);
+            var response = FileDto.Map(updatedFile);
+            return Ok(response);
         }
-        catch { }
+        catch (UnauthorizedAccessException)
+        {
+            return Unauthorized();
+        }
+        catch (FileNotFoundException)
+        {
+            return NotFound();
+        }
+        catch (Exception)
+        {
+            return StatusCode(500);
+        }
     }
 
     [HttpDelete("{id}")]
