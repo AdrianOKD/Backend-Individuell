@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
 public class FileRepository : IFileRepository
@@ -23,6 +24,13 @@ public class FileRepository : IFileRepository
             .FirstOrDefaultAsync(f => f.Id == id && f.OwnerId == userId);
 
         return file!;
+    }
+
+    public async Task<FileEntity> UpdateFileAsync(FileEntity file)
+    {
+        context.File.Update(file);
+        await context.SaveChangesAsync();
+        return file;
     }
 
     public async Task DeleteFileAsync(FileEntity file)
