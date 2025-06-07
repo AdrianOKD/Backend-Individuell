@@ -14,7 +14,10 @@ public class FileDto
         {
             Id = response.Id,
             Name = response.Name,
+            Size = response.Content.Length,
             CreatedAt = response.CreatedAt,
+            FolderId = response.FolderId,
+            FolderName = response.Folder?.Name ?? "Unknown",
         };
     }
 }
