@@ -12,7 +12,7 @@ public class FileRepository : IFileRepository
 
     public async Task<FileEntity> CreateFileAsync(FileEntity file)
     {
-        await context.File.AddAsync(file);
+        await context.Files.AddAsync(file);
         await context.SaveChangesAsync();
         return file;
     }
@@ -20,7 +20,7 @@ public class FileRepository : IFileRepository
     public async Task<FileEntity> FetchFileAsync(int id, string userId)
     {
         var file = await context
-            .File.Include(f => f.Folder)
+            .Files.Include(f => f.Folder)
             .FirstOrDefaultAsync(f => f.Id == id && f.OwnerId == userId);
 
         return file!;
@@ -31,10 +31,10 @@ public class FileRepository : IFileRepository
         List<FileEntity> files
     )> FetchAllFoldersWithFilesAsync(string userId)
     {
-        var folders = await context.Folder.Where(f => f.OwnerId == userId).ToListAsync();
+        var folders = await context.Folders.Where(f => f.OwnerId == userId).ToListAsync();
 
         var files = await context
-            .File.Include(f => f.Folder)
+            .Files.Include(f => f.Folder)
             .Where(f => f.OwnerId == userId)
             .Select(f => new FileEntity
             {
@@ -57,21 +57,21 @@ public class FileRepository : IFileRepository
         string userId
     )
     {
-        return await context.File.FirstOrDefaultAsync(f =>
+        return await context.Files.FirstOrDefaultAsync(f =>
             f.Name == fileName && f.FolderId == folderId && f.OwnerId == userId
         );
     }
 
     public async Task<FileEntity> UpdateFileAsync(FileEntity file)
     {
-        context.File.Update(file);
+        context.Files.Update(file);
         await context.SaveChangesAsync();
         return file;
     }
 
     public async Task DeleteFileAsync(FileEntity file)
     {
-        context.File.Remove(file);
+        context.Files.Remove(file);
         await context.SaveChangesAsync();
     }
 }
