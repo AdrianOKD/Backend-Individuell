@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 public class FileService : IFileService
 {
     private readonly IFileRepository fileRepository;
+    private readonly IFolderRepository folderRepository;
 
     public FileService(IFileRepository fileRepository, IFolderRepository folderRepository)
     {
         this.fileRepository = fileRepository;
+        this.folderRepository = folderRepository;
     }
 
     /// <summary>
@@ -80,12 +82,9 @@ public class FileService : IFileService
     /// <param name="userId">The ID of the user updating the file.</param>
     /// <returns>The updated file entity.</returns>
     /// <exception cref="FileNotFoundException">Thrown when the file doesn't exist or user doesn't have access.</exception>
-    /// <exception cref="KeyNotFoundException">Thrown when the file cannot be found for update.</exception>
     public async Task<FileEntity> UpdateFileAsync(int id, UploadFileRequest request, string userId)
     {
-        var existingFile = await GetFileAsync(id, userId);
-        if (existingFile == null)
-            throw new KeyNotFoundException();
+        await GetFileAsync(id, userId);
 
         byte[] fileContent;
         using (var memoryStream = new MemoryStream())

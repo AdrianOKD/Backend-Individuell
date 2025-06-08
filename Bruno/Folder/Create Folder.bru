@@ -6,6 +6,16 @@ meta {
 
 post {
   url: http://localhost:5238/Folders
-  body: none
-  auth: inherit
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: 
+}
+
+body:json {
+  {
+    "name": ""
+  }
 }

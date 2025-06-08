@@ -6,6 +6,15 @@ meta {
 
 post {
   url: http://localhost:5238/Files
-  body: none
-  auth: inherit
+  body: multipartForm
+  auth: bearer
+}
+
+auth:bearer {
+  token: 
+}
+
+body:multipart-form {
+  FolderId: 
+  File: @file()
 }

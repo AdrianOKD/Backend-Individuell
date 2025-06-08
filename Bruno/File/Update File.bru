@@ -4,12 +4,21 @@ meta {
   seq: 2
 }
 
-post {
+put {
   url: http://localhost:5238/Files/:Id
-  body: none
-  auth: inherit
+  body: multipartForm
+  auth: bearer
 }
 
 params:path {
   Id: 
+}
+
+auth:bearer {
+  token: 
+}
+
+body:multipart-form {
+  FolderId: 
+  File: @file()
 }

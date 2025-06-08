@@ -6,6 +6,19 @@ meta {
 
 post {
   url: http://localhost:5238/login
-  body: none
+  body: json
   auth: inherit
+}
+
+headers {
+  : 
+}
+
+body:json {
+  {
+      "email": "adrian@gmail.com",
+    "password": "Password1!",
+    "twoFactorCode": null,
+    "twoFactorRecoveryCode": null
+  }
 }

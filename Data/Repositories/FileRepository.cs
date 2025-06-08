@@ -64,7 +64,11 @@ public class FileRepository : IFileRepository
 
     public async Task<FileEntity> UpdateFileAsync(FileEntity file)
     {
-        context.Files.Update(file);
+        var existingFile = await context.Files.FindAsync(file.Id);
+
+        existingFile!.Name = file.Name;
+        existingFile.Content = file.Content;
+        existingFile.FolderId = file.FolderId;
         await context.SaveChangesAsync();
         return file;
     }

@@ -89,7 +89,7 @@ public class FilesController : ControllerBase
         }
     }
 
-    [HttpPatch("{id}")]
+    [HttpPut("{id}")]
     public async Task<IActionResult> UpdateFile(int id, [FromForm] UploadFileRequest request)
     {
         try
