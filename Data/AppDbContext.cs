@@ -6,9 +6,9 @@ public class AppDbContext : IdentityDbContext<UserEntity>
     public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options) { }
 
-    public DbSet<FolderEntity> Folder { get; set; }
+    public DbSet<FolderEntity> Folders { get; set; }
 
-    public DbSet<FileEntity> File { get; set; }
+    public DbSet<FileEntity> Files { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
