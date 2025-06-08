@@ -30,6 +30,10 @@ public class FilesController : ControllerBase
         {
             return Unauthorized();
         }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { error = ex.Message });
+        }
         catch (Exception)
         {
             return StatusCode(500);
@@ -83,6 +87,10 @@ public class FilesController : ControllerBase
             };
             return Ok(response);
         }
+        catch (UnauthorizedAccessException)
+        {
+            return Unauthorized();
+        }
         catch
         {
             return StatusCode(500);
@@ -108,6 +116,10 @@ public class FilesController : ControllerBase
         catch (FileNotFoundException)
         {
             return NotFound();
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(new { error = ex.Message });
         }
         catch (Exception)
         {

@@ -84,6 +84,11 @@ public class FileService : IFileService
     /// <exception cref="FileNotFoundException">Thrown when the file doesn't exist or user doesn't have access.</exception>
     public async Task<FileEntity> UpdateFileAsync(int id, UploadFileRequest request, string userId)
     {
+        if (id <= 0)
+            throw new ArgumentException("File ID must be positive");
+
+        if (request?.File == null)
+            throw new ArgumentException("File is required");
         await GetFileAsync(id, userId);
 
         byte[] fileContent;

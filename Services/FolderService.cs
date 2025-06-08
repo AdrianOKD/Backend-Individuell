@@ -25,8 +25,8 @@ public class FolderService : IFolderService
 
         if (existingFolder)
             throw new InvalidOperationException($"Folder '{request.Name}' already exists.");
-        var folder = CreateFolderRequest.ToEntityMap(request, userId);
 
+        var folder = CreateFolderRequest.ToEntityMap(request, userId);
         return await folderRepository.CreateFolderAsync(folder);
     }
 

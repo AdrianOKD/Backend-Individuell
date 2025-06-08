@@ -27,6 +27,14 @@ public class FoldersController : ControllerBase
             var folderResponse = FolderDto.Map(response);
             return Ok(folderResponse);
         }
+        catch (UnauthorizedAccessException)
+        {
+            return Unauthorized();
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { error = ex.Message });
+        }
         catch (Exception)
         {
             return StatusCode(500);
@@ -36,10 +44,19 @@ public class FoldersController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAllFolders()
     {
-        var userId = ValidateUser.UserValidation(User.FindFirstValue(ClaimTypes.NameIdentifier));
+        try
+        {
+            var userId = ValidateUser.UserValidation(
+                User.FindFirstValue(ClaimTypes.NameIdentifier)
+            );
 
-        var folders = await folderService.GetAllFoldersAsync(userId);
-        var folderResponse = folders.Select(FolderDto.Map).ToList();
-        return Ok(folderResponse);
+            var folders = await folderService.GetAllFoldersAsync(userId);
+            var folderResponse = folders.Select(FolderDto.Map).ToList();
+            return Ok(folderResponse);
+        }
+        catch (UnauthorizedAccessException)
+        {
+            return Unauthorized();
+        }
     }
 }
