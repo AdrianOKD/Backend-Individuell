@@ -11,6 +11,13 @@ public class FolderService : IFolderService
 
     public async Task<FolderEntity> RegisterFolderAsync(CreateFolderRequest request, string userId)
     {
+        var existingFolder = await folderRepository.FetchFolderForDuplicateCheckAsync(
+            request.Name,
+            userId
+        );
+
+        if (existingFolder)
+            throw new InvalidOperationException($"Folder '{request.Name}' already exists.");
         var folder = CreateFolderRequest.ToEntityMap(request, userId);
 
         return await folderRepository.CreateFolderAsync(folder);

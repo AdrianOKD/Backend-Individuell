@@ -4,5 +4,5 @@ public interface IFolderRepository
 
     Task<List<FolderEntity>> FetchAllFoldersAsync(string userId);
 
-    Task<bool> FetchFolderForDuplicateCheckAsync(CreateFolderRequest request);
+    Task<bool> FetchFolderForDuplicateCheckAsync(string folderName, string userId);
 }

@@ -1,9 +1,13 @@
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
 
 public class UserEntity : IdentityUser
 {
-    public string? FirstName { get; set; }
-    public string? LastName { get; set; }
+    [StringLength(50)]
+    public required string FirstName { get; set; } = null!;
+
+    [StringLength(50)]
+    public required string LastName { get; set; } = null!;
 
     //Navigation Prop
     public ICollection<FolderEntity> OwnedFolders { get; set; } = new List<FolderEntity>();

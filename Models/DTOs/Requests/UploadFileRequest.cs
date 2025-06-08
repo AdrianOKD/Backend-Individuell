@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 public class UploadFileRequest
 {
     [Required]
-    public IFormFile File { get; set; }
+    public IFormFile File { get; set; } = null!;
 
     [Required]
     public int FolderId { get; set; }

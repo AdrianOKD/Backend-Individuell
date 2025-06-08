@@ -22,10 +22,10 @@ public class FolderRepository : IFolderRepository
         return folders;
     }
 
-    public async Task<bool> FetchFolderForDuplicateCheckAsync(CreateFolderRequest request)
+    public async Task<bool> FetchFolderForDuplicateCheckAsync(string folderName, string userId)
     {
         var response = await context.Folders.AnyAsync(f =>
-            f.Name == request.Name && f.OwnerId == request.OwnerId
+            f.Name == folderName && f.OwnerId == userId
         );
         return response;
     }

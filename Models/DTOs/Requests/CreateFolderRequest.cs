@@ -3,10 +3,7 @@ using System.ComponentModel.DataAnnotations;
 public class CreateFolderRequest
 {
     [Required]
-    public string Name { get; set; }
-
-    [Required]
-    public string OwnerId { get; set; }
+    public string Name { get; set; } = null!;
 
     public static FolderEntity ToEntityMap(CreateFolderRequest request, string userId)
     {
