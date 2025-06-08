@@ -11,14 +11,20 @@ public class FolderRepository : IFolderRepository
 
     public async Task<FolderEntity> CreateFolderAsync(FolderEntity folder)
     {
-        await context.Folder.AddAsync(folder);
+        await context.Folders.AddAsync(folder);
         await context.SaveChangesAsync();
         return folder;
     }
 
-    public async Task<bool> FolderExistAsync(CreateFolderRequest request)
+    public async Task<List<FolderEntity>> FetchAllFoldersAsync(string userId)
     {
-        var response = await context.Folder.AnyAsync(f =>
+        var folders = await context.Folders.Where(f => f.OwnerId == userId).ToListAsync();
+        return folders;
+    }
+
+    public async Task<bool> FetchFolderForDuplicateCheckAsync(CreateFolderRequest request)
+    {
+        var response = await context.Folders.AnyAsync(f =>
             f.Name == request.Name && f.OwnerId == request.OwnerId
         );
         return response;

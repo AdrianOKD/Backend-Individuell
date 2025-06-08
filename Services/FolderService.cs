@@ -16,10 +16,11 @@ public class FolderService : IFolderService
         return await folderRepository.CreateFolderAsync(folder);
     }
 
-    
-
-    //TODO Add method for fetching folders.
-
+    public async Task<List<FolderEntity>> GetAllFoldersAsync(string userId)
+    {
+        var folders = await folderRepository.FetchAllFoldersAsync(userId);
+        return folders;
+    }
 
     public Task RemoveFolderAsync(int id, string userId)
     {

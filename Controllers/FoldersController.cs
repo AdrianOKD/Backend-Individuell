@@ -33,5 +33,13 @@ public class FoldersController : ControllerBase
         }
     }
 
-    
+    [HttpGet]
+    public async Task<IActionResult> GetAllFolders()
+    {
+        var userId = ValidateUser.UserValidation(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+        var folders = await folderService.GetAllFoldersAsync(userId);
+        var folderResponse = folders.Select(FolderDto.Map).ToList();
+        return Ok(folderResponse);
+    }
 }

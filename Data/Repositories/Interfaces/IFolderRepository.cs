@@ -1,8 +1,8 @@
 public interface IFolderRepository
 {
-    public Task<FolderEntity> CreateFolderAsync(FolderEntity folder);
+    Task<FolderEntity> CreateFolderAsync(FolderEntity folder);
 
-    
+    Task<List<FolderEntity>> FetchAllFoldersAsync(string userId);
 
-    public Task<bool> FolderExistAsync(CreateFolderRequest request);
+    Task<bool> FetchFolderForDuplicateCheckAsync(CreateFolderRequest request);
 }
