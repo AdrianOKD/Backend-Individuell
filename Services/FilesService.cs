@@ -37,7 +37,8 @@ public class FileService : IFileService
         }
 
         var file = UploadFileRequest.ToEntityMap(request, userId, fileContent);
-        return await fileRepository.CreateFileAsync(file);
+        var createdFile = await fileRepository.CreateFileAsync(file);
+        return await fileRepository.FetchFileAsync(createdFile.Id, userId);
     }
 
     public async Task<FileEntity> GetFileAsync(int id, string userId)

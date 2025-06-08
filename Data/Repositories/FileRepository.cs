@@ -51,7 +51,7 @@ public class FileRepository : IFileRepository
         return (folders, files);
     }
 
-    public async Task<FileEntity> FetchFileForDuplicateCheckAsync(
+    public async Task<FileEntity?> FetchFileForDuplicateCheckAsync(
         string fileName,
         int folderId,
         string userId

@@ -7,7 +7,7 @@ public interface IFileRepository
     Task<(List<FolderEntity> folders, List<FileEntity> files)> FetchAllFoldersWithFilesAsync(
         string userId
     );
-    Task<FileEntity> FetchFileForDuplicateCheckAsync(string fileName, int folderId, string userId);
+    Task<FileEntity?> FetchFileForDuplicateCheckAsync(string fileName, int folderId, string userId);
 
     Task<FileEntity> UpdateFileAsync(FileEntity file);
 
