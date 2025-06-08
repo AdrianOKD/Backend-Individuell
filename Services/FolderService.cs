@@ -1,13 +1,18 @@
 public class FolderService : IFolderService
 {
-    private readonly ILogger<IFolderService> logger;
     private readonly IFolderRepository folderRepository;
 
-    public FolderService(IFolderRepository folderRepository, ILogger<IFolderService> logger)
+    public FolderService(IFolderRepository folderRepository)
     {
         this.folderRepository = folderRepository;
-        this.logger = logger;
     }
+
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="request"></param>
+    /// <param name="userId"></param>
+    /// <returns></returns>
 
     public async Task<FolderEntity> RegisterFolderAsync(CreateFolderRequest request, string userId)
     {

@@ -4,17 +4,11 @@ public class FileService : IFileService
 {
     private readonly IFileRepository fileRepository;
     private readonly IFolderRepository folderRepository;
-    private readonly ILogger<FileService> logger;
 
-    public FileService(
-        IFileRepository fileRepository,
-        IFolderRepository folderRepository,
-        ILogger<FileService> logger
-    )
+    public FileService(IFileRepository fileRepository, IFolderRepository folderRepository)
     {
         this.fileRepository = fileRepository;
         this.folderRepository = folderRepository;
-        this.logger = logger;
     }
 
     public async Task<FileEntity> RegisterFileAsync(UploadFileRequest request, string userId)
