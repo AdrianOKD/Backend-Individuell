@@ -1,0 +1,15 @@
+meta {
+  name: Update File
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:5238/Files/:Id
+  body: none
+  auth: inherit
+}
+
+params:path {
+  Id: 
+}
