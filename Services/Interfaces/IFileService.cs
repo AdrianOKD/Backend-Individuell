@@ -4,7 +4,7 @@ public interface IFileService
     Task<FileEntity> GetFileAsync(int id, string userId);
     Task<FileEntity> UpdateFileAsync(int id, UploadFileRequest request, string userId);
 
-    public Task<(List<FolderEntity> folders, List<FileEntity> files)> GetAllFoldersWithFilesAsync(
+    Task<(List<FolderEntity> folders, List<FileEntity> files)> GetAllFoldersWithFilesAsync(
         string userId
     );
 
