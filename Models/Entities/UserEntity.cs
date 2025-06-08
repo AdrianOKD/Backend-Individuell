@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Identity;
 
 public class UserEntity : IdentityUser
 {
+    [Required]
     [StringLength(50)]
-    public required string FirstName { get; set; } = null!;
+    public string FirstName { get; set; } = null!;
 
+    [Required]
     [StringLength(50)]
-    public required string LastName { get; set; } = null!;
+    public string LastName { get; set; } = null!;
 
     //Navigation Prop
     public ICollection<FolderEntity> OwnedFolders { get; set; } = new List<FolderEntity>();
