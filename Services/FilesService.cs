@@ -49,6 +49,15 @@ public class FileService : IFileService
         return file;
     }
 
+    public async Task<(
+        List<FolderEntity> folders,
+        List<FileEntity> files
+    )> GetAllFoldersWithFilesAsync(string userId)
+    {
+        var (folders, files) = await fileRepository.FetchAllFoldersWithFilesAsync(userId);
+        return (folders, files);
+    }
+
     public async Task<FileEntity> UpdateFileAsync(int id, UploadFileRequest request, string userId)
     {
         var existingFile = await GetFileAsync(id, userId);
@@ -73,18 +82,5 @@ public class FileService : IFileService
         if (file == null)
             throw new FileNotFoundException(id);
         await fileRepository.DeleteFileAsync(file);
-    }
-
-    public async Task<(List<FolderDto> folders, List<FileDto> files)> GetAllFoldersWithFilesAsync(
-        string userId
-    )
-    {
-        var (folders, files) = await fileRepository.FetchAllFoldersWithFilesAsync(userId);
-        return (folders.Select(FolderDto.Map).ToList(), files.Select(FileDto.Map).ToList());
-    }
-
-    public Task RemoveFolderAsync(int id, string userId)
-    {
-        throw new NotImplementedException();
     }
 }

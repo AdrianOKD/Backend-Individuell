@@ -76,7 +76,12 @@ public class FilesController : ControllerBase
                 User.FindFirstValue(ClaimTypes.NameIdentifier)
             );
             var (folders, files) = await fileService.GetAllFoldersWithFilesAsync(userId);
-            return Ok(new { folders, files });
+            var response = new
+            {
+                folders = folders.Select(FolderDto.Map).ToList(),
+                files = files.Select(FileDto.Map).ToList(),
+            };
+            return Ok(response);
         }
         catch
         {
